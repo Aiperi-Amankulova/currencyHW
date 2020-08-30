@@ -7,12 +7,56 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tvKn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:text="@string/konvertor"
+        android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etOne"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@id/etTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvKn" />
+
+    <EditText
+        android:id="@+id/etTwo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/etOne"
+        app:layout_constraintTop_toBottomOf="@id/tvKn" />
+
+    <Spinner
+        android:id="@+id/spOne"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/etOne"
+        app:layout_constraintStart_toStartOf="@id/etOne"
+        app:layout_constraintTop_toBottomOf="@id/etOne" />
+
+    <Spinner
+        android:id="@+id/spTwo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/etTwo"
+        app:layout_constraintStart_toStartOf="@id/etTwo"
+        app:layout_constraintTop_toBottomOf="@id/etTwo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
