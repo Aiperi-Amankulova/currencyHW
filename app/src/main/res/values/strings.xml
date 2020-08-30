@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">СurrencyHW</string>
+    <string name="konvertor">Конвертор для валют</string>
 </resources>
