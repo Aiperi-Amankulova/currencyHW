@@ -2,19 +2,20 @@ package com.example.urrencyhw.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telecom.Call
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.view.OneShotPreDrawListener.add
 import androidx.core.widget.doAfterTextChanged
-import com.example.urrencyhw.Data.Model.DataClass
+import com.example.urrencyhw.Data.Model.CurrencyModel
 import com.example.urrencyhw.Data.Remote.RetrofitBuilder
 import com.example.urrencyhw.R
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.Response
-import javax.security.auth.callback.Callback
+import retrofit2.Callback
+import retrofit2.Call
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,10 +28,6 @@ class MainActivity : AppCompatActivity() {
         setupNetwork()
     }
 
-    private fun setupNetwork() {
-        fetchCurencies()
-    }
-
     private fun setupListeners() {
         etOne.doAfterTextChanged {
             calculate(it.toString())
@@ -38,8 +35,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculate(value: String) {
-        val result = (values[spTwo.selectedItemPosition].toDouble() * value.toDouble()/list[spOne.selectedItemPosition].toDouble())
-        etTwo.setText(result.toString())
+        if (value.isNotEmpty()) {
+            val result =
+                value.toDouble() * (values[spTwo.selectedItemPosition].toDouble() / values[spOne.selectedItemPosition].toDouble())
+            etTwo.setText(result.toString())
+        }
     }
 
     private val textWatcher = object : TextWatcher {
@@ -51,12 +51,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchCurencies() {
-        RetrofitBuilder.getService()?.getCurrencies(API_KEY)
-            ?.enqueue(object : Callback<DataClass> {
+    private fun setupNetwork() {
+        val enqueue = RetrofitBuilder.getService()?.getCurrencies(API_KEY)
+            ?.enqueue(object : Callback<CurrencyModel> {
                 override fun onResponse(
-                    call: Call<DataClass>,
-                    response: Response<DataClass>
+                    call: Call<CurrencyModel>,
+                    response: Response<CurrencyModel>
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         val data = response.body()
@@ -66,13 +66,14 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<DataClass>, t: Throwable) {
+
+                override fun onFailure(call: Call<CurrencyModel>, t: Throwable) {
                     Log.e("NETWORK", t.localizedMessage)
                 }
             })
     }
 
-    private fun workWithData(data: DataClass?) {
+    private fun workWithData(data: CurrencyModel?) {
         val keys = data?.rates?.keySet()?.toList()
 
 

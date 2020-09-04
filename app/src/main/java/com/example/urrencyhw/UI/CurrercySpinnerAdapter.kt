@@ -9,23 +9,20 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.urrencyhw.R
 
-class CurrencySpinnerAdapter(context: Context, resource: Int, objects: List<String>) :
-    ArrayAdapter<String>(context, resource, objects) {
-
+class CurrencySpinnerAdapter(context: Context, resource: Int, objects: List<String>) : ArrayAdapter<String>(context, resource, objects) {
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_spinner, parent, false)
-        view.findViewById<TextView>(R.id.tvSpinn).text = getItem(position)
+        view.findViewById<TextView>(R.id.tvTitle).text = getItem(position)
         return view
     }
-
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_spinner, parent, false)
 
-        view.findViewById<TextView>(R.id.tvSpinn).text = getItem(position)
+        view.findViewById<TextView>(R.id.tvTitle).text = getItem(position)
         return view
     }
 }
