@@ -1,4 +1,4 @@
-package com.example.urrencyhw.UI
+package com.example.urrencyhw.ui
 
 import android.annotation.SuppressLint
 import android.content.Context

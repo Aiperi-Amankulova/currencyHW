@@ -1,5 +1,6 @@
-package com.example.urrencyhw.Data.Remote
+package com.example.urrencyhw.data.remote
 
+import com.example.urrencyhw.BuildConfig.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

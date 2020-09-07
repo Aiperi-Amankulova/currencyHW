@@ -1,7 +1,7 @@
-package com.example.urrencyhw.Data.Remote
+package com.example.urrencyhw.data.remote
 
 
-import com.example.urrencyhw.Data.Model.CurrencyModel
+import com.example.urrencyhw.data.model.CurrencyModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

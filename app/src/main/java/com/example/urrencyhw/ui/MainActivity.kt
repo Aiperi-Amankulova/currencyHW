@@ -1,23 +1,26 @@
-package com.example.urrencyhw.UI
+package com.example.urrencyhw.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import androidx.core.view.OneShotPreDrawListener.add
 import androidx.core.widget.doAfterTextChanged
-import com.example.urrencyhw.Data.Model.CurrencyModel
-import com.example.urrencyhw.Data.Remote.RetrofitBuilder
+import com.example.urrencyhw.BuildConfig.API_KEY
+import com.example.urrencyhw.data.model.CurrencyModel
+import com.example.urrencyhw.data.remote.RetrofitBuilder
 import com.example.urrencyhw.R
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+class MainActivity() : AppCompatActivity(), Parcelable {
 
     private val values = arrayListOf<String>()
 
@@ -51,6 +54,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    constructor(parcel: Parcel) : this() {
+    }
+
     private fun setupNetwork() {
         val enqueue = RetrofitBuilder.getService()?.getCurrencies(API_KEY)
             ?.enqueue(object : Callback<CurrencyModel> {
@@ -58,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     call: Call<CurrencyModel>,
                     response: Response<CurrencyModel>
                 ) {
-                    if (response.isSuccessful && response.body() != null) {
+                    val any = if (response.isSuccessful && response.body() != null) {
                         val data = response.body()
                         workWithData(data)
                     } else {
@@ -100,4 +106,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<MainActivity> {
+        override fun createFromParcel(parcel: Parcel): MainActivity {
+            return MainActivity(parcel)
+        }
+
+        override fun newArray(size: Int): Array<MainActivity?> {
+            return arrayOfNulls(size)
+        }
+    }
+
 }

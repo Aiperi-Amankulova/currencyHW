@@ -1,4 +1,4 @@
-package com.example.urrencyhw.Data.Model
+package com.example.urrencyhw.data.model
 
 import com.google.gson.JsonObject
 
